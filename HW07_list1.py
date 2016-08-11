@@ -21,9 +21,14 @@
 # strings where the string length is 2 or more and the first
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
+
 def match_ends(words):
     # +++your code here+++
-    return
+    count = 0
+    for item in words:
+        if len(item) >= 2 and item[0] == item[-1]:
+            count += 1
+    return count
 
 
 # B. front_x
@@ -35,7 +40,20 @@ def match_ends(words):
 # before combining them.
 def front_x(words):
     # +++your code here+++
-    return
+    x_words = []
+    new_list = []
+    
+    for word in words:
+        if word[0] == 'x':
+            x_words.append(word)
+            #words.remove(word) would not work here. It looks like the for Loop iterates based on indices, because once the second to last word is removed, it stops looping.
+    for word in x_words:
+        if word in words:
+            words.remove(word)
+    
+    new_list = sorted(x_words) + sorted(words)    
+    
+    return new_list
 
 
 # C. sort_last
@@ -44,9 +62,12 @@ def front_x(words):
 # e.g. [(1, 7), (1, 3), (3, 4, 5), (2, 2)] yields
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
+def last(t): 
+    return t[-1]
 def sort_last(tuples):
     # +++your code here+++
-    return
+    return sorted(tuples, key=last)
+    
 
 
 # Simple provided test() function used in main() to print
@@ -56,7 +77,8 @@ def test(got, expected):
         prefix = ' OK '
     else:
         prefix = '  X '
-    print('%s got: %s expected: %s'.format(prefix, repr(got), repr(expected)))
+    print('{} got: {} expected: {}'.format(prefix, repr(got), repr(expected)))
+
 
 
 # Calls the above functions with interesting inputs.
